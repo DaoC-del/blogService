@@ -1,17 +1,26 @@
 package com.background.userService.config;
 
+import com.background.userService.util.JwtTokenFilter;
+import com.background.userService.util.JwtTokenProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
     // 定义PasswordEncoder Bean
     @Bean
@@ -29,14 +38,10 @@ public class SecurityConfig {
                         .anyRequest().authenticated()) // 其他所有请求需要认证
                 // 替代httpBasic和formLogin的配置
                 .httpBasic(httpBasic -> httpBasic.disable()) // 如果需要启用HTTP Basic认证，可以自定义配置
-                .formLogin(formLogin -> formLogin.disable()); // 如果需要启用表单登录，可以自定义配置
-
+                .formLogin(formLogin -> formLogin.disable())
+                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+        ; // 如果需要启用表单登录，可以自定义配置
         return http.build();
     }
 
-    // 可选：自定义UserDetailsService
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    //     return ...
-    // }
 }

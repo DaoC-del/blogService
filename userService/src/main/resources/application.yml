@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  jmx:
+    enabled: false
+
+mybatis-plus:
+  type-aliases-package: com.background.userService.domain
+# ????????mapper????, ??????????????????????
+# mapper-locations: classpath:/mappers/**/*.xml
+
+# ??JWT????
+security:
+  jwt:
+    token:
+      secret-key: "s3cr3t!Key$1234_abCD+EfGhIjkLmN%&OpQrSt"
+      expire-length: 3600000
