@@ -2,7 +2,6 @@ package com.background.userService.config;
 
 import com.background.userService.util.JwtTokenFilter;
 import com.background.userService.util.JwtTokenProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

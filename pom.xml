@@ -21,6 +21,7 @@
 
     <modules>
         <module>userService</module>
+        <module>articleService</module>
         <!-- Other services modules will be added here -->
     </modules>
 
