@@ -49,6 +49,13 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.background</groupId>
+            <artifactId>commonSecurity</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- commonSecurity  -->
         <!-- 示例：添加一个自定义版本的依赖 -->
         <!-- <dependency>
             <groupId>some.group</groupId>

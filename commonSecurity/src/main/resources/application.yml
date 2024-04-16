@@ -1,0 +1,6 @@
+# ??JWT????
+security:
+  jwt:
+    token:
+      secret-key: "s3cr3t!Key$1234_abCD+EfGhIjkLmN%&OpQrSt"
+      expire-length: 3600000

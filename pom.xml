@@ -22,6 +22,7 @@
     <modules>
         <module>userService</module>
         <module>articleService</module>
+        <module>commonSecurity</module>
         <!-- Other services modules will be added here -->
     </modules>
 

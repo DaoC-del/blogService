@@ -18,10 +18,10 @@ public class Article {
     private String content;
 
     @Column(nullable = false)
-    private Long userId; // Assuming articles are related to users
+    private Long authorId; // Assuming articles are related to users
 
-    @Column(nullable = false)
-    private String status; // e.g., "PUBLISHED", "DRAFT", etc.
+    @Column
+    private String status="PUBLISHED"; // e.g., "PUBLISHED", "DRAFT", etc.
 
     // Possible addition of timestamp fields for created and updated timestamps
 }
