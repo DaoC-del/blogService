@@ -10,12 +10,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ApplicationException.class)
-    protected ResponseEntity<Object> handleApplicationException(ApplicationException ex) {
-        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
-        return buildResponseEntity(apiError);
-    }
-
     @ExceptionHandler(RegistrationFailedException.class)
     protected ResponseEntity<Object> handleRegistrationFailed(RegistrationFailedException ex) {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
@@ -46,12 +40,29 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
+    @ExceptionHandler({ApplicationException.class, OperationFailedException.class})
+    protected ResponseEntity<Object> handleApplicationException(ApplicationException ex) {
+        ApiError apiError = new ApiError(ex.getStatus(), ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    protected ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {
+        ApiError apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    protected ResponseEntity<Object> handleUnauthorizedException(UnauthorizedException ex) {
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED, ex.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<Object> handleGeneralException(Exception ex) {
         ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred");
         return buildResponseEntity(apiError);
     }
-
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {
         return new ResponseEntity<>(apiError, apiError.status());
     }
